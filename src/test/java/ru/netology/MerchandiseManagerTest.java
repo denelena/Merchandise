@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import ru.netology.domain.*;
 import ru.netology.manager.MerchandiseManager;
 import ru.netology.storage.Repository;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MerchandiseManagerTest {
@@ -19,8 +20,7 @@ public class MerchandiseManagerTest {
     private Smartphone phone03 = new Smartphone(3000, "īPhone Gro", "Uncle Tzao's factory", 125);
 
     @Test
-    public void shouldAddBooks()
-    {
+    public void shouldAddBooks() {
         MerchandiseManager mm = new MerchandiseManager(repository);
 
         mm.add(book01);
@@ -33,8 +33,7 @@ public class MerchandiseManagerTest {
     }
 
     @Test
-    public void shouldAddPhones()
-    {
+    public void shouldAddPhones() {
         MerchandiseManager mm = new MerchandiseManager(repository);
 
         mm.add(phone01);
@@ -46,8 +45,7 @@ public class MerchandiseManagerTest {
     }
 
     @Test
-    public void shouldAddBookAndPhone()
-    {
+    public void shouldAddBookAndPhone() {
         MerchandiseManager mm = new MerchandiseManager(repository);
         mm.add(book01);
         mm.add(phone01);
@@ -57,16 +55,14 @@ public class MerchandiseManagerTest {
     }
 
     @Test
-    public void shouldAddNothing()
-    {
+    public void shouldAddNothing() {
         MerchandiseManager mm = new MerchandiseManager(repository);
         Product[] expected = new Product[0];
         assertArrayEquals(expected, repository.findAll());
     }
 
     @Test
-    public void shouldAddAndRemove()
-    {
+    public void shouldAddAndRemove() {
         repository.add(book01);
         repository.add(book02);
         repository.add(book03);
@@ -103,8 +99,7 @@ public class MerchandiseManagerTest {
     }
 
     @Test
-    public void shouldAddSearchAndFindNothing()
-    {
+    public void shouldAddSearchAndFindNothing() {
         MerchandiseManager mm = new MerchandiseManager(repository);
 
         mm.add(book01);
@@ -121,8 +116,7 @@ public class MerchandiseManagerTest {
     }
 
     @Test
-    public void shouldAddSearchAndFindOneOnTitleOrModel()
-    {
+    public void shouldAddSearchAndFindOneOnTitleOrModel() {
         MerchandiseManager mm = new MerchandiseManager(repository);
 
         mm.add(book01);
@@ -143,8 +137,7 @@ public class MerchandiseManagerTest {
     }
 
     @Test
-    public void shouldAddSearchAndFindOneOnAuthorOrPriceOrManufacturer()
-    {
+    public void shouldAddSearchAndFindOneOnAuthorOrPriceOrManufacturer() {
         MerchandiseManager mm = new MerchandiseManager(repository);
 
         mm.add(book01);
@@ -170,8 +163,7 @@ public class MerchandiseManagerTest {
     }
 
     @Test
-    public void shouldAddSearchAndFindTwo()
-    {
+    public void shouldAddSearchAndFindTwo() {
         MerchandiseManager mm = new MerchandiseManager(repository);
 
         mm.add(book01);
@@ -188,8 +180,7 @@ public class MerchandiseManagerTest {
     }
 
     @Test
-    public void shouldAddAndSearchCaseInsensitive()
-    {
+    public void shouldAddAndSearchCaseInsensitive() {
         MerchandiseManager mm = new MerchandiseManager(repository);
 
         mm.add(book01);
