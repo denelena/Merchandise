@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MerchandiseManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MerchandiseManagerTest Coverage Results</a> &gt; <a href="index.source.html" class="el_package">ru.netology.manager</a> &gt; <span class="el_source">MerchandiseManager.java</span></div><h1>MerchandiseManager.java</h1><pre class="source lang-java linenums">package ru.netology.manager;
+
+import ru.netology.domain.*;
+import ru.netology.storage.Repository;
+
+public class MerchandiseManager {
+    private Repository repository;
+
+<span class="fc" id="L9">    public MerchandiseManager(Repository r){</span>
+<span class="fc" id="L10">        repository = r;</span>
+<span class="fc" id="L11">    }</span>
+
+    public void add(Product newItem){
+<span class="fc" id="L14">        repository.add(newItem);</span>
+<span class="fc" id="L15">    }</span>
+
+    public Product[] searchBy(String text)
+    {
+<span class="fc" id="L19">        Product[] results = new Product[0];</span>
+<span class="fc bfc" id="L20" title="All 2 branches covered.">        for (Product currProduct: repository.findAll() ) {</span>
+<span class="fc bfc" id="L21" title="All 2 branches covered.">            if(matches(currProduct, text)) {</span>
+<span class="fc" id="L22">                Product[] expandedResults = new Product[results.length + 1];</span>
+<span class="fc" id="L23">                System.arraycopy(results, 0, expandedResults, 0, results.length);</span>
+<span class="fc" id="L24">                expandedResults[results.length] = currProduct;</span>
+<span class="fc" id="L25">                results = expandedResults;</span>
+            }
+        }
+<span class="fc" id="L28">        return results;</span>
+    }
+
+    public boolean matches(Product product, String search) {
+        //I believe we want case-insensitive match
+
+        //match on Price, too! Although doesn't make much sense to match price as &quot;contains&quot;, because, for example, $10, $100, $1000 - all contain &quot;1&quot; and &quot;0&quot;.
+        // it would be more reasonable to find exact price match
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        if(String.valueOf(product.getPrice()).equals(search))</span>
+<span class="fc" id="L37">            return true;</span>
+
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        if (product instanceof Book) {</span>
+<span class="fc" id="L40">            Book book = (Book) product;</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">            if (book.getAuthor().toLowerCase().contains(search.toLowerCase())) {</span>
+<span class="fc" id="L42">                return true;</span>
+            }
+<span class="fc bfc" id="L44" title="All 2 branches covered.">            if (book.getTitle().toLowerCase().contains(search.toLowerCase())) {</span>
+<span class="fc" id="L45">                return true;</span>
+            }
+<span class="fc" id="L47">            return false;</span>
+        }
+
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (product instanceof Smartphone) {</span>
+<span class="fc" id="L51">            Smartphone phone = (Smartphone) product;</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">            if (phone.getModel().toLowerCase().contains(search.toLowerCase())) {</span>
+<span class="fc" id="L53">                return true;</span>
+            }
+<span class="fc bfc" id="L55" title="All 2 branches covered.">            if (phone.getManufacturer().toLowerCase().contains(search.toLowerCase())) {</span>
+<span class="fc" id="L56">                return true;</span>
+            }
+<span class="fc" id="L58">            return false;</span>
+        }
+<span class="fc" id="L60">        return false;// xa-xa, neither Book, nor Smartphone :-)</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
